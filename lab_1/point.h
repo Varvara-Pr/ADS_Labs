@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <iostream>
 #include <complex>
 
@@ -24,7 +24,6 @@ std::ostream& operator<<(std::ostream& os, const Point<T>& p) {
     return os;
 }
 
-//вывод для complex
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const Point<std::complex<T>>& p) {
     os << "(" << p._x.real() << "+" << p._x.imag() << "i, "
