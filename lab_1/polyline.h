@@ -169,11 +169,29 @@ public:
         return *this;
     }
 
-    /*bool operator==(const Polyline<T>& other) const {
+    bool operator==(const Polyline<T>& other) const {
+        if (_size != other._size) return false;
+
+        for (size_t i = 0; i < _size; ++i) {
+            if constexpr (std::is_floating_point_v<T> || std::is_same_v<T, std::complex<float>> ||
+                std::is_same_v<T, std::complex<double>>) {
+                if (std::abs(_vertices[i]._x - other._vertices[i]._x) > _epsilon ||
+                    std::abs(_vertices[i]._y - other._vertices[i]._y) > _epsilon) {
+                    return false;
+                }
+            }
+            else {
+                if (_vertices[i] != other._vertices[i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     bool operator!=(const Polyline<T>& other) const {
-    }*/
+        return !(*this == other);
+    }
 
     size_t size() const { return _size; }
     size_t capacity() const { return _capacity; }
