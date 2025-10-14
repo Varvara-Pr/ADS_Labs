@@ -22,10 +22,15 @@ public:
         _vertices[0] = point;
     }
 
-    Polyline(size_t count) {
-        _vertices = new Point<T>[_capacity];
-        for (size_t i = 0; i < _size; ++i) {
-            _vertices[i] = Point<T>();
+    Polyline(size_t count) : _size(count), _capacity(count) {
+        if (count > 0) {
+            _vertices = new Point<T>[_capacity];
+            for (size_t i = 0; i < _size; ++i) {
+                _vertices[i] = Point<T>();
+            }
+        }
+        else {
+            _vertices = nullptr;
         }
     }
 
