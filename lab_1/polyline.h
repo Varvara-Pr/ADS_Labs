@@ -146,8 +146,24 @@ public:
         return result;
     }
 
-    /*double length() const {}
-    */
+    double length() const {
+        if (_size < 2) return 0.0;
+        double total = 0.0;
+        for (size_t i = 1; i < _size; ++i) {
+            auto dx = _vertices[i]._x - _vertices[i - 1]._x;
+            auto dy = _vertices[i]._y - _vertices[i - 1]._y;
+            if constexpr (std::is_same_v<T, std::complex<float>> ||
+                std::is_same_v<T, std::complex<double>>) {
+                double dx_abs = std::abs(dx);
+                double dy_abs = std::abs(dy);
+                total += std::sqrt(dx_abs * dx_abs + dy_abs * dy_abs);
+            }
+            else {
+                total += std::sqrt(static_cast<double>(dx * dx + dy * dy));
+            }
+        }
+        return total;
+    }
 
     Polyline& operator=(const Polyline& other) {
         if (this != &other) {
