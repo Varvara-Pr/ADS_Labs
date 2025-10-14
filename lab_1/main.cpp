@@ -51,6 +51,10 @@ int main() {
     cout << "complex [1+1i, 3+3i]: " << complexLine << "\n";
     cout << "Length (complex): " << complexLine.length() << "\n\n";
 
+    cout << "6. Task 2: Rectangular trapezoid:\n";
+    auto trapezoid = createRectangularTrapezoid(8.0, 4.0, 3.0);
+    cout << "Trapezoid (a=8, b=4, h=3): " << trapezoid << "\n";
+    cout << "Trapezoid length: " << trapezoid.length() << "\n";
 
     return 0;
 }
