@@ -1,11 +1,10 @@
 #pragma once
+#include "point.h"
 #include <iostream>
 #include <complex>
 #include <stdexcept>
 #include <random>
 #include <cmath>
-#include "point.h"
-
 
 template<typename T>
 class Polyline {
@@ -25,9 +24,6 @@ public:
     Polyline(size_t count) : _size(count), _capacity(count) {
         if (count > 0) {
             _vertices = new Point<T>[_capacity];
-            for (size_t i = 0; i < _size; ++i) {
-                _vertices[i] = Point<T>();
-            }
         }
         else {
             _vertices = nullptr;
