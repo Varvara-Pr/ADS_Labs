@@ -115,9 +115,29 @@ public:
         ++_size;
     }
 
+    void push_tail(const LinkedList& other) {
+        if (other._head != nullptr) {
+            Node<T>* current = other._head;
+            do {
+                push_tail(current->data);
+                current = current->next;
+            } while (current != other._head);
+        }
+    }
+
     void push_head(const T& value) {
         push_tail(value);
         _head = _head->prev;
+    }
+
+    void push_head(const LinkedList& other) {
+        if (other._head != nullptr) {
+            Node<T>* current = other._head->prev;
+            do {
+                push_head(current->data);
+                current = current->prev;
+            } while (current != other._head->prev);
+        }
     }
 
     void pop_head() {
