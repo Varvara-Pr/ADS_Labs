@@ -169,6 +169,49 @@ public:
         pop_head();
     }
 
+    void delete_node(const T& value) {
+        if (_head == nullptr) return;
+
+        Node<T>* cur = _head;
+        size_t orig = _size;
+
+        for (size_t i = 0; i < orig; ++i) {
+            Node<T>* next = cur->next;
+
+            if (cur->data == value) {
+                if (cur == _head) {
+                    pop_head();
+                }
+                else {
+                    Node<T>* p = cur->prev;
+                    Node<T>* n = cur->next;
+                    p->next = n;
+                    n->prev = p;
+                    delete cur;
+                    --_size;
+                }
+            }
+
+            if (_size == 0) break;
+            cur = next;
+        }
+    }
+
+    void reverse() {
+        if (_size < 2) return;
+
+        Node<T>* cur = _head;
+
+        for (size_t i = 0; i < _size; ++i) {
+            Node<T>* t = cur->next;
+            cur->next = cur->prev;
+            cur->prev = t;
+            cur = t;
+        }
+
+        _head = _head->next;
+    }
+
     size_t size() const {
         return _size;
     }
