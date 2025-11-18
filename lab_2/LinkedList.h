@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <stdexcept>
+#include <random>
 
 template <typename T>
 struct Node {
@@ -40,6 +41,36 @@ public:
         }
 
         _head->prev = iter;
+    }
+
+    LinkedList(size_t count, T min_val, T max_val, unsigned int seed) : _head(nullptr), _size(0) {
+
+        if (min_val > max_val) {
+            throw std::invalid_argument("min_val > max_val");
+        }
+        if (count == 0) return;
+
+        std::default_random_engine gen(seed);
+
+        if constexpr (std::is_integral_v<T>) {
+
+            std::uniform_int_distribution<T> dist(min_val, max_val);
+            for (size_t i = 0; i < count; ++i) {
+                push_tail(dist(gen));
+            }
+        }
+        else if constexpr (std::is_floating_point_v<T>) {
+
+            std::uniform_real_distribution<T> dist(min_val, max_val);
+            for (size_t i = 0; i < count; ++i) {
+                push_tail(dist(gen));
+            }
+        }
+        else {
+            for (size_t i = 0; i < count; ++i) {
+                push_tail(min_val);
+            }
+        }
     }
 
     ~LinkedList() {
